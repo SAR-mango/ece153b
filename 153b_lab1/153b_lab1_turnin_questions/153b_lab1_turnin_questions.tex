@@ -1,0 +1,29 @@
+\input{setup}
+\input{commands}
+\class{ECE 153B}
+\title{Lab 1 Turn-in Questions}
+\author{Erk Sampat}
+\begin{document}
+\maketitle
+\prob
+For the first bit:
+\begin{verbatim}
+	GPIO_MODER_MODE11_0 // 0x00400000U
+\end{verbatim}
+For the second bit:
+\begin{verbatim}
+	GPIO_MODER_MODE11_1 // 0x00800000U
+\end{verbatim}
+\prob
+\begin{verbatim}
+	// set mode of PC7 to output (01)
+	GPIOC->MODER |=  GPIO_MODER_MODE7_0; // 0x00004000U
+	GPIOC->MODER &= ~GPIO_MODER_MODE7_1; // 0x00008000U
+\end{verbatim}
+\prob
+\begin{verbatim}
+	uint16_t data_pc3 = ((GPIOC->IDR & GPIO_IDR_ID3) == GPIO_IDR_ID3);
+	// GPIO_IDR_ID3 is ((uint32_t)0x00000008U)
+\end{verbatim}
+\texttt{data\_pc3} will be 0 if the pin is low and 1 if the pin is high.
+\end{document}

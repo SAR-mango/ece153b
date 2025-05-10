@@ -1,0 +1,21 @@
+\input{setup}
+\input{commands}
+\class{ECE 153B}
+\title{Lab 4 Turn-in Questions}
+\author{Erk Sampat}
+\begin{document}
+\maketitle
+\prob
+BRR stands for baud-rate register, in which we set the USARTDIV value. This value divides the system clock frequency. In the case of oversampling by 16, the corresponding baud rate is given by
+$$\text{baud rate} = \frac{f_{\text{clk}}}{\text{USARTDIV}}$$
+\prob
+In the lab handout, we are instructed to choose a prescaler value of 7 such that an I2C clock frequency $f_{\text{PRESC}}=\qMhz{10}$ is achieved. The corresponding I2C clock period $t_{\text{PRESC}}=\qns{100}$ is used in the calculation of all delays shown in the timing diagrams for I2C transactions. These calculations must be rounded up to the nearest integer, since the specified delays are minimum values.
+
+For example, $t_{\text{SCLDEL}}=(\text{SCLDEL}+1)\cdot t_{\text{PRESC}}$, where $t_{\text{SCLDEL}}=\qus{1}$ and $t_{\text{PRESC}}=\qns{100}$. This gives $\text{SCLDEL}=9$.
+
+Similar calculations outlined in the lab handout result in $\text{SDADEL}=13$, $\text{SCLH}=40$, and $\text{SCLL}=47$.
+\prob
+After setting the relevant registers in the accelerometer to configure it appropriately, we read data from the accelerometer by sending it a read command. Such a command consists of a read/write bit (1 for a read operation), then a multi-byte bit (always zero; we only perform single-byte transactions), followed by the six-bit address we wish to read. We then send a dummy byte of all zeros. Throughout this two-byte transaction, we are clocking in data from the accelerometer as well.
+
+We throw out the first byte that was clocked in, since it was received while we were still sending to the accelerometer the address we wish to read. The second byte contains the actual data we wish to read, and was clocked in while we were sending the dummy byte.
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=letterpaper,margin=0.5in,footskip=0.25in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{cancel}
+\usepackage{titlesec} % for custom title format
+%\usepackage{enumitem}[itemsep=0em,topsep=0em] % for lists
+%\usepackage{graphicx} % for including images, pdfs, etc.
+%\usepackage{framed}
+%\usepackage[dvipsnames]{xcolor} % for additional colors
+%\usepackage{pgfplots} % for plots
+%\usetikzlibrary{calc,positioning,arrows.meta} % for tikz positioning help and arrows
+%\usetikzlibrary{karnaugh} % for k-maps
+%\usepackage[american]{circuitikz} % for circuits!
+\usepackage[per-mode=fraction,inter-unit-product=\ensuremath{{}\cdot{}}]{siunitx} % for nicely formatted units
+\usepackage{changepage} % for problem/part/subpart formatting
+\usepackage{datetime} % for custom date format
+\usepackage[T1]{fontenc} % everyone recommends to use this but idk what it's for
+\usepackage{microtype} % typesetting enhancements
+\usepackage[theorems]{tcolorbox} % for beautiful yellow-background answer boxes
+%\usepackage{mathtools} % for the Aboxed command, which lets you box things within the align environment
+%\usepackage{makecell} % for more complicated table formatting
+%\usepackage{steinmetz} % for the phase ("angle of") symbol
+%\usepackage{calc} % to perform arithmetic on spacing units
+%\usepackage{epsfig} % to include EPS figures from Matlab
+%\usepackage{matlab-prettifier} % for Matlab editor lstlisting template
+%\lstset{style=C++,inputpath=code} % to include Matlab code
+
+\definecolor{yorkyellow}{RGB}{255,255,208} % same color as in prof. york's slides
+
+% config for answer boxes
+\tcbset{
+	boxrule=0.5pt,
+	left=0.1cm,
+	right=0.1cm,
+	top=0.1cm,
+	bottom=0.1cm,
+	sharp corners,
+	colback=yorkyellow
+}
+
+% config for plots
+%\pgfplotsset{compat=newest}
+%\tikzset{>=Stealth}
+%\pgfplotsset{
+%	standard/.style={
+%		trig format=rad,
+%		axis x line=middle,
+%		axis y line=middle,
+%		x label style={right},
+%		y label style={above},
+%		y tick label style={right},
+%		axis line style={-Stealth,semithick},
+%		major tick style={thick,black},
+%		extra x tick labels={\empty},
+%		extra y tick labels={\empty}
+%	}
+%}
+
+% to format matrices like tables; for example, [cc|c]. this lets you create an augmented matrix.
+%\makeatletter
+%\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+%	\hskip -\arraycolsep
+%	\let\@ifnextchar\new@ifnextchar
+%	\array{#1}}
+%\makeatother
+
+% k-map configuration
+%\tikzset{every karnaugh/.style={American style,kmlabel left/.style={black, font=\small, left=2pt}, kmlabel top/.style={black, font=\small, above=1pt}}}
+%\tikzset{
+%	grp/.style n args={3}{#1,
+%		thick,
+%		minimum width=#2\kmunitlength,
+%		minimum height=#3\kmunitlength,
+%		rounded corners=0.2\kmunitlength,
+%		rectangle,draw}
+%}
+
+% date format
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEDAY, \THEYEAR}
+
+% problem/part/subpart formatting
+\newcommand{\prob}[1][]{\section{#1}}
+\renewcommand{\thesubsection}{\alph{subsection}}
+\renewcommand{\thesubsubsection}{\roman{subsubsection}}
+\newenvironment{pp}{\adjustwidth{\parindent}{\parindent}\mbox{}\vspace{-\baselineskip}\subsection{}}{\endadjustwidth}
+\newenvironment{spart}{\adjustwidth{\parindent}{\parindent}\mbox{}\vspace{-\baselineskip}\subsubsection{}}{\endadjustwidth}
+
+% redefine sections/subsections/subsubsections for problem/part/subpart
+\titleformat{\section}{}{\textbf{\thesection.}}{0em}{ \textbf}
+\titleformat{\subsection}[runin]{}{\textbf{\makebox[4ex][l]{(\thesubsection)}}}{0em}{}
+\titleformat{\subsubsection}[runin]{}{\makebox[\parindent][l]{\thesubsubsection.}}{0em}{}
+\titlespacing*{\section}{0em}{1em}{0em}
+\titlespacing*{\subsection}{0em}{0.5em}{0em}
+\titlespacing*{\subsubsection}{0em}{0.5em}{0em}
+
+% for the ``class'' title parameter
+\makeatletter\def\@class{Class}
+\newcommand{\class}[1]{
+	\def\@class{#1}
+}\makeatother
+
+% title format
+\makeatletter
+\def\@maketitle{
+	\centering
+	\textbf{\@class{: }\@title} \\
+	\@author \\
+	\monthyeardate\today
+	\vskip\topskip
+}\makeatother
